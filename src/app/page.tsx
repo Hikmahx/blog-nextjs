@@ -10,7 +10,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col px-4 py-8 max-w-xl lg:max-w-6xl mx-auto">
+    <main className="flex min-h-screen flex-col px-4 py-8 container mx-auto">
       <h1 className="mb-4 font-bold ">Home</h1>
       <div className="flex items-center justify-center min-h-screen text-xl">
         Redirecting to Blog...
