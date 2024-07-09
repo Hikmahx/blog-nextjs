@@ -55,7 +55,7 @@ export function CardPost() {
         </p>
       </CardContent>
       <CardFooter className="flex items-center gap-2">
-        <div className="w-12 h-12 bg-slate-300 rounded-full"></div>
+        <div className="w-10 h-10 bg-slate-300 rounded-full"></div>
         <div className="flex flex-col text-sm">
           <span className="m-0 ">Jane Doe</span>
           <span className="m-0">8th July, 2024</span>
