@@ -1,4 +1,5 @@
 import { CardPost } from "@/components/CardPost";
+import Paginator from "@/components/Paginator";
 import React from "react";
 
 const Blog = () => {
@@ -11,6 +12,7 @@ const Blog = () => {
         <CardPost />
         <CardPost />
       </div>
+      <Paginator />
     </main>
   );
 };
