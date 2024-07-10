@@ -2,17 +2,20 @@
 
 import { CardPost } from "@/components/CardPost";
 import Paginator from "@/components/Paginator";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import SortSelect from "@/components/SortSelect";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
   setPostsDetails,
   setLoading,
   setError,
+  setCurrentPage,
+  setSortBy,
 } from "@/lib/features/posts/postsSlice";
 import { Skeleton } from "@/components/ui/skeleton";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-const getPostsDetails = async (sortBy = "date", curPage = 1): Promise<any> => {
+const getQueryString = (sortBy = "date", curPage = 1) => {
   const validatePage = isNaN(curPage) || curPage < 1 ? 1 : curPage;
   const validateSortBy = sortBy === "title" ? "title" : "date";
 
@@ -23,6 +26,12 @@ const getPostsDetails = async (sortBy = "date", curPage = 1): Promise<any> => {
       (sortBy === "title" ? "&" : "?") + "page=" + validatePage
     }`;
 
+  return queryString;
+};
+
+const getPostsDetails = async (sortBy = "date", curPage = 1): Promise<any> => {
+  let queryString = getQueryString(sortBy, curPage);
+
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/posts${queryString}`,
     {
@@ -32,14 +41,19 @@ const getPostsDetails = async (sortBy = "date", curPage = 1): Promise<any> => {
   if (!response.ok) {
     throw new Error(`HTTP error! status: ${response.status}`);
   }
+
   return await response.json();
 };
 
 const Blog = () => {
-  const { postsDetails, currentPage, sortBy, loading, error } = useAppSelector(
-    (state) => state.posts
-  );
+  // const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  const { postsDetails, currentPage, sortBy, loading, error, errMsg } =
+    useAppSelector((state) => state.posts);
   const dispatch = useAppDispatch();
+  const [initialized, setInitialized] = useState(false);
 
   const fetchPosts = async (sortBy: string, page: number) => {
     dispatch(setLoading());
@@ -52,8 +66,23 @@ const Blog = () => {
   };
 
   useEffect(() => {
-    fetchPosts(sortBy, currentPage);
-  }, [sortBy, currentPage]);
+    const pageParam = Number(searchParams.get("page")) || 1;
+    const sortByParam = searchParams.get("sortBy") || "date";
+
+    dispatch(setCurrentPage(pageParam));
+    dispatch(setSortBy(sortByParam));
+
+    setInitialized(true);
+    console.log("Initialized");
+  }, []);
+
+  useEffect(() => {
+    if (initialized) {
+      fetchPosts(sortBy, currentPage);
+      const queryString = getQueryString(sortBy, currentPage);
+      router.push(queryString);
+    }
+  }, [sortBy, currentPage, initialized]);
 
   return (
     <main className="flex min-h-screen flex-col px-4 py-8 container mx-auto">
@@ -74,8 +103,8 @@ const Blog = () => {
         </div>
       )}
       {error && (
-        <div className="text-center py-12 text-prose lg:text-prose-xl min-h-[60vh]">
-          Error: {error}.
+        <div className="text-center py-12 text-prose lg:text-prose-xl min-h-[60vh] text-2xl lg:text-3xl">
+          {errMsg}. Reload page.
         </div>
       )}
       {!loading && !error && postsDetails.posts.length === 0 && (
