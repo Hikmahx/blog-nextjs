@@ -5,7 +5,12 @@ import Paginator from "@/components/Paginator";
 import React, { useEffect } from "react";
 import SortSelect from "@/components/SortSelect";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setPostsDetails } from "@/lib/features/posts/postsSlice";
+import {
+  setPostsDetails,
+  setLoading,
+  setError,
+} from "@/lib/features/posts/postsSlice";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const getPostsDetails = async (sortBy = "date", curPage = 1): Promise<any> => {
   const validatePage = isNaN(curPage) || curPage < 1 ? 1 : curPage;
@@ -31,14 +36,19 @@ const getPostsDetails = async (sortBy = "date", curPage = 1): Promise<any> => {
 };
 
 const Blog = () => {
-  const { postsDetails, currentPage, sortBy } = useAppSelector(
+  const { postsDetails, currentPage, sortBy, loading, error } = useAppSelector(
     (state) => state.posts
   );
   const dispatch = useAppDispatch();
 
   const fetchPosts = async (sortBy: string, page: number) => {
-    const postsDetails = await getPostsDetails(sortBy, page);
-    dispatch(setPostsDetails(postsDetails));
+    dispatch(setLoading());
+    try {
+      const postsDetails = await getPostsDetails(sortBy, page);
+      dispatch(setPostsDetails(postsDetails));
+    } catch (err: any) {
+      dispatch(setError(err.message));
+    }
   };
 
   useEffect(() => {
@@ -53,15 +63,32 @@ const Blog = () => {
       <div className="w-full flex justify-end mb-12">
         <SortSelect />
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-x-6 gap-y-8">
-        {postsDetails.posts.map((post: any) => (
-          <CardPost key={post.id} post={post} />
-        ))}
-      </div>
-      <Paginator />
-      {postsDetails.posts.length === 0 && (
+      {loading && (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-x-6 gap-y-8 w-full min-h-[60vh]">
+          {Array.from({ length: 6 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              className="min-h-[450px] w-full rounded-sm"
+            />
+          ))}
+        </div>
+      )}
+      {error && (
+        <div className="text-center py-12 text-prose lg:text-prose-xl min-h-[60vh]">
+          Error: {error}.
+        </div>
+      )}
+      {!loading && !error && postsDetails.posts.length === 0 && (
         <div className="text-center py-12">No posts found.</div>
       )}
+      {!loading && !error && (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-x-6 gap-y-8">
+          {postsDetails.posts.map((post: any) => (
+            <CardPost key={post.id} post={post} />
+          ))}
+        </div>
+      )}
+      <Paginator />
     </main>
   );
 };

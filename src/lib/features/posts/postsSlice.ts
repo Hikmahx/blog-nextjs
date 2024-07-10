@@ -22,25 +22,42 @@ const initialState: PostState = {
   },
   sortBy: "date",
   currentPage: 1,
-  errMsg: "" as string,
+  errMsg: "",
 };
 
 const postSlice = createSlice({
   name: "posts",
   initialState,
   reducers: {
-    setCurrentPage: (state, { payload }) => {
-      state.currentPage = payload;
+    setPostsDetails(state, action) {
+      state.postsDetails = action.payload;
+      state.loading = false;
+      state.errMsg = "";
+      state.error = false;
     },
-    setSortBy: (state, { payload }) => {
-      state.sortBy = payload;
+    setLoading(state) {
+      state.loading = true;
+      state.error = false;
     },
-    setPostsDetails: (state, { payload }) => {
-      state.postsDetails = payload;
-      state.posts = payload.posts || [];
+    setError(state, action) {
+      state.loading = false;
+      state.error = true;
+      state.errMsg = action.payload;
+    },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
+    },
+    setSortBy(state, action) {
+      state.sortBy = action.payload;
     },
   },
 });
 
-export const { setCurrentPage, setPostsDetails, setSortBy } = postSlice.actions;
+export const {
+  setCurrentPage,
+  setPostsDetails,
+  setSortBy,
+  setError,
+  setLoading,
+} = postSlice.actions;
 export default postSlice.reducer;
