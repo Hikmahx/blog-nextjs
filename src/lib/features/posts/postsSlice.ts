@@ -1,21 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { PostsDetails } from "./types";
-
+import { Post, PostsDetails, SortBy } from "./types";
 
 interface PostState {
   error: boolean;
   loading: boolean;
-  posts: PostsDetails | [];
+  posts: Post[] | [];
+  postsDetails: PostsDetails;
   errMsg: string;
   currentPage: number;
+  sortBy: SortBy;
 }
 
 const initialState: PostState = {
   error: false,
   loading: false,
   posts: [],
-  errMsg: "" as string,
+  postsDetails: {
+    posts: [],
+    pageCount: 1,
+    currentPage: 1,
+  },
+  sortBy: "date",
   currentPage: 1,
+  errMsg: "" as string,
 };
 
 const postSlice = createSlice({
@@ -25,8 +32,15 @@ const postSlice = createSlice({
     setCurrentPage: (state, { payload }) => {
       state.currentPage = payload;
     },
+    setSortBy: (state, { payload }) => {
+      state.sortBy = payload;
+    },
+    setPostsDetails: (state, { payload }) => {
+      state.postsDetails = payload;
+      state.posts = payload.posts || [];
+    },
   },
 });
 
-export const { setCurrentPage } = postSlice.actions;
+export const { setCurrentPage, setPostsDetails, setSortBy } = postSlice.actions;
 export default postSlice.reducer;
