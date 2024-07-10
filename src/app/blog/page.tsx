@@ -68,7 +68,7 @@ const Blog = () => {
           {Array.from({ length: 6 }).map((_, index) => (
             <Skeleton
               key={index}
-              className="min-h-[450px] w-full rounded-sm"
+              className="min-h-[500px] w-full rounded-sm bg-slate-200"
             />
           ))}
         </div>

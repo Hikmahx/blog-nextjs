@@ -37,7 +37,7 @@ export const CardPost = ({ post }: { post: PostProps }) => {
   };
 
   return (
-    <Card className="!prose lg:!prose-xl prose-slate">
+    <Card className="!prose lg:!prose-xl prose-slate flex flex-col justify-between">
       <div className="overflow-hidden">
         <Image
           // loader={imageLoader}\
@@ -65,11 +65,12 @@ export const CardPost = ({ post }: { post: PostProps }) => {
       </CardHeader>
       <CardContent>
         <p>{firstParagraph.substring(0, 100)}...</p>
+      </CardContent>
+      <CardFooter className="grid">
         <p>
           <Link href={`/blog/${post._id}`}>Read More</Link>
         </p>
-      </CardContent>
-      <CardFooter className="flex items-center gap-2">
+        <div className="flex items-center gap-2">
         <div className="w-10 h-10 bg-slate-300 rounded-full"></div>
         <div className="flex flex-col text-sm">
           <span className="m-0 ">{post.author.name}</span>
@@ -80,7 +81,7 @@ export const CardPost = ({ post }: { post: PostProps }) => {
               day: "numeric",
             })}
           </time>
-        </div>
+        </div></div>
       </CardFooter>
     </Card>
   );
