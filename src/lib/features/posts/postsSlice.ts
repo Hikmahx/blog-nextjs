@@ -13,7 +13,7 @@ interface PostState {
 
 const initialState: PostState = {
   error: false,
-  loading: false,
+  loading: true,
   posts: [],
   postsDetails: {
     posts: [],
