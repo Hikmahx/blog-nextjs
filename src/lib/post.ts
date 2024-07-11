@@ -20,3 +20,14 @@ export const getData = async (sortBy: string, currentPage: number) => {
   }
   return response.json();
 };
+
+export const getPost = async (id: string) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  return response.json();
+};

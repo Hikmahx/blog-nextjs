@@ -1,87 +1,76 @@
+import { getPost } from "@/lib/post";
 import Image from "next/image";
+import Link from "next/link";
 
-export const Page = ({ params }: { params: { id: string } }) => {
+export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
 
+  const data = await getPost(id);
+  console.log(data);
+
   return (
-    <main>
-      <article className="px-4 py-6 space-y-6 md:px-6 md:space-y-10 container mx-auto">
-        <section className="space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl">
-            Blog Post Title
-          </h1>
-          <p className="text-sm text-gray-500">Route: {`${id}`}</p>
-          <nav className="flex flex-col gap-1 text-sm sm:flex-row sm:gap-2">
-            <span className="text-gray-500 ">Posted on July 9, 2024</span>
-          </nav>
-        </section>
-        <section className="prose prose-gray max-w-none not-italic">
-          <h2 className="sr-only">page content</h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicings elit. Esse
-            aperiam facere optio dolorum aspernatur alias natus, odit animi
-            distinctio eos expedita incidunt quam eius exercitationem totam
-          </p>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-            aperiam facere optio dolorum aspernatur alias natus, odit animi
-            distinctio eos expedita incidunt quam eius exercitationem totam
-          </p>
-          <p>
-            And then, one day, the people of the kingdom discovered that the
-            jokes left by Jokester were so funny that they couldn&apos;t help
-            but laugh. And once they started laughing, they couldn&apos;t stop.
-          </p>
-          <figure>
-            <Image
-              src="https://placehold.jp/500x500.png"
-              alt="Cover image"
-              width={750}
-              height={422}
-              className="aspect-video overflow-hidden rounded-lg object-cover"
+    <main className="py-20">
+      <div className="container max-w-xl lg:max-w-5xl mx-auto px-4 py-6 md:px-6 ">
+        <Link href="/blog" className="flex items-center my-2 prose">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            className="bi bi-chevron-left"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
+            ></path>
+          </svg>
+          BACK
+        </Link>
+        <article className="prose prose-img:rounded-xl prose-a:text-blue-600 !max-w-none">
+          <section className="">
+            <h1 className="text-3xl font-bold tracking-wider sm:text-4xl xl:text-5xl capitalize mb-2">
+              {data.title}
+            </h1>
+            <div className="flex items-center gap-2 pb-3">
+              <div>
+                <Image
+                  className="w-10 h-10 bg-slate-300 rounded-full my-2"
+                  src={data.author.avatar}
+                  alt="placeholder"
+                  width={40}
+                  height={40}
+                />
+              </div>
+              <span className="prose mr-2 font-bold capitalize">
+                {data.author.name}
+              </span>
+              <span className="text-gray-500 ">
+                {new Date(data.createdAt).toLocaleString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
+              </span>
+            </div>
+            <div className="mt-5">
+              <Image
+                className="w-full h-auto bg-slate-300 rounded-lg my-2"
+                src={data.img}
+                alt="placeholder"
+                width={400}
+                height={400}
+              />
+            </div>
+          </section>
+          <section className="prose prose-gray max-w-none not-italic">
+            <div
+              className="content"
+              dangerouslySetInnerHTML={{ __html: data.content }}
             />
-            <figcaption>Image caption goes here</figcaption>
-          </figure>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-            aperiam facere optio dolorum <a href="#">link here</a>: Esse aperiam
-            facere optio dolorum
-          </p>
-          <blockquote>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-            aperiam facere optio dolorum aspernatur alias natus, odit animi
-            distinctio eos expedita incidunt quam eius exercitationem totam
-          </blockquote>
-          <h3>Lorem ipsum, dolor</h3>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-            aperiam facere optio dolorum
-          </p>
-          <ul>
-            <li>Lorem ipsum, dolor sit amet consectetur</li>
-            <li>Lorem ipsum, dolor sit amet consectetur</li>
-            <li>Lorem ipsum, dolor sit amet consectetur</li>
-          </ul>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-            aperiam facere optio dolorum aspernatur alias natus, odit animi
-            distinctio eos expedita incidunt quam eius exercitationem totam
-          </p>
-        </section>
-        <section className="space-y-2">
-          <h2 className="text-2xl font-bold tracking-tight">
-            About the Author
-          </h2>
-          <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-            aperiam facere optio dolorum aspernatur alias natus, odit animi
-            distinctio eos expedita incidunt quam eius exercitationem totam
-            molestias maiores asperiores possimus?
-          </p>
-        </section>
-      </article>
+          </section>
+        </article>
+      </div>
     </main>
   );
-};
-
-export default Page;
+}
