@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,14 +10,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-import { useAppDispatch } from "@/lib/hooks";
-import { setSortBy } from "@/lib/features/posts/postsSlice";
 
 const SortSelect = () => {
-  const dispatch = useAppDispatch();
+  const [sortBy, setSortBy] = useState("date");
 
   return (
-    <Select onValueChange={(value: any) => dispatch(setSortBy(value))}>
+    <Select onValueChange={(value: any) => setSortBy(value)}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>

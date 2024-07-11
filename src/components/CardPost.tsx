@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle,
@@ -32,16 +31,10 @@ export const CardPost = ({ post }: { post: PostProps }) => {
 
   const firstParagraph = extractFirstParagraph(post.content);
 
-  const imageLoader = () => {
-    return <Skeleton className="h-[120px] w-[300px] rounded-t-lg" />;
-  };
-
   return (
     <Card className="!prose lg:!prose-xl prose-slate flex flex-col justify-between">
       <div className="overflow-hidden">
         <Image
-          // loader={imageLoader}\
-          // placeholder = 'blur'
           className="w-full h-auto !m-0 lg:!m-0 rounded-t-lg"
           src={post.img}
           alt="placeholder"
@@ -71,17 +64,18 @@ export const CardPost = ({ post }: { post: PostProps }) => {
           <Link href={`/blog/${post._id}`}>Read More</Link>
         </p>
         <div className="flex items-center gap-2">
-        <div className="w-10 h-10 bg-slate-300 rounded-full"></div>
-        <div className="flex flex-col text-sm">
-          <span className="m-0 ">{post.author.name}</span>
-          <time dateTime={post.createdAt.slice(0, 10)}>
-            {new Date(post.createdAt).toLocaleString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </time>
-        </div></div>
+          <div className="w-10 h-10 bg-slate-300 rounded-full"></div>
+          <div className="flex flex-col text-sm">
+            <span className="m-0 ">{post.author.name}</span>
+            <time dateTime={post.createdAt.slice(0, 10)}>
+              {new Date(post.createdAt).toLocaleString("en-US", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </time>
+          </div>
+        </div>
       </CardFooter>
     </Card>
   );

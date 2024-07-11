@@ -8,19 +8,25 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "./ui/pagination";
-import { useAppDispatch, useAppSelector } from "@/lib/hooks";
-import { setCurrentPage } from "@/lib/features/posts/postsSlice";
 import ReactPaginate from "react-paginate";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-const Paginator = () => {
-  const { currentPage, postsDetails } = useAppSelector((state) => state.posts);
-  const dispatch = useAppDispatch();
+type Props = {
+  currentPage: number;
+  pageCount: number;
+};
 
-  const pageCount = postsDetails.pageCount || 3;
+const Paginator = ({ currentPage, pageCount }: Props) => {
+  const pathname = usePathname();
+  const basePath = pathname.split("/")[1];
+  const { replace } = useRouter();
 
   const handlePageClick = (event: { selected: number }) => {
-    dispatch(setCurrentPage(event.selected + 1));
+    replace(
+      currentPage - 1 === 1
+        ? `/${basePath}/`
+        : `/${basePath}?page=${event.selected + 1}`
+    );
   };
 
   return (
@@ -64,7 +70,6 @@ const Paginator = () => {
           containerClassName="flex items-center gap-2 mt-4"
           disabledClassName="text-gray-400"
           activeClassName="font-semibold rounded-lg border border-gray-300"
-          // initialPage={currentPage - 1}
           pageLinkClassName="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-10 w-10"
           breakClassName="flex h-9 w-9 items-center justify-center"
           renderOnZeroPageCount={null}

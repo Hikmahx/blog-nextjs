@@ -1,7 +1,8 @@
 import Image from "next/image";
-import React from "react";
 
-const page = () => {
+export const Page = ({ params }: { params: { id: string } }) => {
+  const { id } = params;
+
   return (
     <main>
       <article className="px-4 py-6 space-y-6 md:px-6 md:space-y-10 container mx-auto">
@@ -9,6 +10,7 @@ const page = () => {
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl">
             Blog Post Title
           </h1>
+          <p className="text-sm text-gray-500">Route: {`${id}`}</p>
           <nav className="flex flex-col gap-1 text-sm sm:flex-row sm:gap-2">
             <span className="text-gray-500 ">Posted on July 9, 2024</span>
           </nav>
@@ -16,7 +18,7 @@ const page = () => {
         <section className="prose prose-gray max-w-none not-italic">
           <h2 className="sr-only">page content</h2>
           <p>
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
+            Lorem ipsum, dolor sit amet consectetur adipisicings elit. Esse
             aperiam facere optio dolorum aspernatur alias natus, odit animi
             distinctio eos expedita incidunt quam eius exercitationem totam
           </p>
@@ -82,4 +84,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
