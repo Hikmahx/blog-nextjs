@@ -2,7 +2,7 @@
 
 import { CardPost } from "@/components/CardPost";
 import Paginator from "@/components/Paginator";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SortSelect from "@/components/SortSelect";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
 import {
@@ -15,39 +15,48 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
-const getQueryString = (sortBy = "date", curPage = 1) => {
-  const validatePage = isNaN(curPage) || curPage < 1 ? 1 : curPage;
-  const validateSortBy = sortBy === "title" ? "title" : "date";
-
-  let queryString = sortBy === "title" ? `?sortBy=${validateSortBy}` : "";
-  if (validatePage > 1)
-    queryString += `${
-      validatePage !== 1 &&
-      (sortBy === "title" ? "&" : "?") + "page=" + validatePage
-    }`;
-
-  return queryString;
-};
-
-const getPostsDetails = async (sortBy = "date", curPage = 1): Promise<any> => {
-  let queryString = getQueryString(sortBy, curPage);
-
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/posts${queryString}`,
-    {
-      cache: "no-store",
-    }
-  );
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-
-  return await response.json();
-};
-
 const Blog = () => {
-  // const pathname = usePathname();
+  const getQueryString = (sortBy = "date", curPage = 1) => {
+    const validatePage = isNaN(curPage) || curPage < 1 ? 1 : curPage;
+    const validateSortBy = sortBy === "title" ? "title" : "date";
+
+    const params = new URLSearchParams(searchParams);
+    if (validateSortBy === "title") {
+      params.set("sortBy", sortBy);
+    } else {
+      params.delete("sortBy");
+    }
+    if (validatePage > 1) {
+      params.set("page", validatePage.toString());
+    } else {
+      params.delete("page");
+    }
+
+    console.log(`?${params.toString()}`);
+    return `?${params.toString()}`;
+  };
+
+  const getPostsDetails = async (
+    sortBy = "date",
+    curPage = 1
+  ): Promise<any> => {
+    let queryString = getQueryString(sortBy, curPage);
+
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/posts${queryString}`,
+      {
+        cache: "no-store",
+      }
+    );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    return await response.json();
+  };
+
   const searchParams = useSearchParams();
+
   const router = useRouter();
 
   const { postsDetails, currentPage, sortBy, loading, error, errMsg } =
