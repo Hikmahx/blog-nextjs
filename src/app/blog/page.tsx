@@ -32,7 +32,6 @@ const Blog = () => {
       params.delete("page");
     }
 
-    console.log(`?${params.toString()}`);
     return `?${params.toString()}`;
   };
 
@@ -82,7 +81,6 @@ const Blog = () => {
     dispatch(setSortBy(sortByParam));
 
     setInitialized(true);
-    console.log("Initialized");
   }, []);
 
   useEffect(() => {
