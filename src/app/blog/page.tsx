@@ -16,7 +16,7 @@ export default async function Page({
     page?: string;
   };
 }) {
-  const sortBy = searchParams?.sortBy || "title";
+  const sortBy = searchParams?.sortBy || "";
   const currentPage = parseInt(searchParams?.page || "1");
   const data = await getData(sortBy, currentPage);
 

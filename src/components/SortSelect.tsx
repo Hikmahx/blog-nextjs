@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,12 +9,29 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 const SortSelect = () => {
-  const [sortBy, setSortBy] = useState("date");
+  const pathname = usePathname();
+  const basePath = pathname.split("/")[1];
+  const { replace } = useRouter();
+
+  const searchParams = useSearchParams();
+
+  const handleChange = (sortBy: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+
+    if (sortBy !== "title") {
+      params.delete("sortBy");
+    } else {
+      params.set("sortBy", sortBy);
+    }
+
+    replace(`/${basePath}?${params.toString()}`);
+  };
 
   return (
-    <Select onValueChange={(value: any) => setSortBy(value)}>
+    <Select onValueChange={(value: any) => handleChange(value)}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>

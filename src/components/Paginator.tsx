@@ -20,13 +20,17 @@ const Paginator = ({ currentPage, pageCount }: Props) => {
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
   const { replace } = useRouter();
+  const searchParams = useSearchParams();
 
   const handlePageClick = (event: { selected: number }) => {
-    replace(
-      currentPage - 1 === 1
-        ? `/${basePath}/`
-        : `/${basePath}?page=${event.selected + 1}`
-    );
+    const params = new URLSearchParams(searchParams.toString());
+    if (event.selected + 1 !== 1) {
+      params.set("page", `${event.selected + 1}`);
+    } else {
+      params.delete("page");
+    }
+
+    replace(`/${basePath}?${params.toString()}`);
   };
 
   return (
