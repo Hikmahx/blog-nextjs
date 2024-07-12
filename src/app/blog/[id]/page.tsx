@@ -6,7 +6,6 @@ export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
 
   const data = await getPost(id);
-  console.log(data);
 
   return (
     <main className="py-20">
