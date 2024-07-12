@@ -1,6 +1,30 @@
 import { getPost } from "@/lib/post";
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const id = decodeURI(params.id);
+
+  const data = await getPost(id);
+
+  return {
+    title: data.title,
+    description: data.title,
+    authors: data.author.name,
+    keywords: data.hashtags.join(", "),
+    openGraph: {
+      type: "article",
+      title: data.title,
+      description: data.title,
+      images: data.img,
+    },
+  };
+}
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -10,7 +34,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <main className="py-20">
       <div className="container max-w-xl lg:max-w-5xl mx-auto px-4 py-6 md:px-6 ">
-        <Link href="/blog" className="flex items-center my-2 prose">
+        <Link href="/blog" className="flex items-center my-2 prose pb-12">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -26,7 +50,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           </svg>
           BACK
         </Link>
-        <article className="prose prose-img:rounded-xl prose-a:text-blue-600 !max-w-none">
+        <article className="prose prose-img:rounded-xl !max-w-none mt-2">
           <section className="">
             <h1 className="text-3xl font-bold tracking-wider sm:text-4xl xl:text-5xl capitalize mb-2">
               {data.title}
@@ -52,6 +76,17 @@ export default async function Page({ params }: { params: { id: string } }) {
                 })}
               </span>
             </div>
+            <div className="flex flex-wrap gap-3">
+            {data.hashtags.map((tag: string, index: number) => (
+              <Link
+                href={`/${tag}`}
+                key={`${tag}-${index}`}
+                className="uppercase !font-normal text-[8px] lg:!text-[10px] text-slate-500 py-1 rounded-full w-auto"
+              >
+                {tag}
+              </Link>
+            ))}
+          </div>
             <div className="mt-5">
               <Image
                 className="w-full h-auto bg-slate-300 rounded-lg my-2"

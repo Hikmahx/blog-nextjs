@@ -2,10 +2,10 @@ import { CardPost } from "@/components/CardPost";
 import Paginator from "@/components/Paginator";
 import PostsLayout from "@/layouts/PostsLayout";
 import { getData, getQueryString } from "@/lib/post";
+import { Metadata } from "next";
 
-type PageProps = {
-  sortBy?: string;
-  currentPage?: number;
+export const metadata: Metadata = {
+  title: 'Blog',
 };
 
 export default async function Page({
