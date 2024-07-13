@@ -1,6 +1,5 @@
 "use client";
-import { CardPost } from "@/components/CardPost";
-import Image from "next/image";
+
 import { redirect } from "next/navigation";
 import { useEffect } from "react";
 

@@ -11,7 +11,7 @@ import {
 } from "./ui/select";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-const SortSelect = () => {
+export default function SortSelect() {
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
   const { replace } = useRouter();
@@ -44,6 +44,4 @@ const SortSelect = () => {
       </SelectContent>
     </Select>
   );
-};
-
-export default SortSelect;
+}

@@ -1,7 +1,5 @@
-import { CardPost } from "@/components/CardPost";
-import Paginator from "@/components/Paginator";
 import PostsLayout from "@/layouts/PostsLayout";
-import { getData, getQueryString } from "@/lib/post";
+import { getData } from "@/lib/post";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "./ui/pagination";
+import { Pagination } from "./ui/pagination";
 import ReactPaginate from "react-paginate";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
@@ -16,7 +8,7 @@ type Props = {
   pageCount: number;
 };
 
-const Paginator = ({ currentPage, pageCount }: Props) => {
+export default function Paginator({ currentPage, pageCount }: Props) {
   const pathname = usePathname();
   const basePath = pathname.split("/")[1];
   const { replace } = useRouter();
@@ -82,6 +74,4 @@ const Paginator = ({ currentPage, pageCount }: Props) => {
       </Pagination>
     </div>
   );
-};
-
-export default Paginator;
+}

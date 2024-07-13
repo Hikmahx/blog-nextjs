@@ -1,4 +1,4 @@
-export const getQueryString = (sortBy = "date", curPage = 1) => {
+export function getQueryString(sortBy = "date", curPage = 1) {
   const validatePage = isNaN(curPage) || curPage < 1 ? 1 : curPage;
   const validateSortBy = sortBy === "title" ? "title" : "date";
 
@@ -10,7 +10,7 @@ export const getQueryString = (sortBy = "date", curPage = 1) => {
   return queryString;
 };
 
-export const getData = async (sortBy: string, currentPage: number) => {
+export async function getData(sortBy: string, currentPage: number) {
   const queryString = getQueryString(sortBy, currentPage);
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/posts${queryString}`
@@ -21,7 +21,7 @@ export const getData = async (sortBy: string, currentPage: number) => {
   return response.json();
 };
 
-export const getPost = async (id: string) => {
+export async function getPost(id: string) {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`
   );

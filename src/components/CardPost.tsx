@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   Card,
   CardContent,
@@ -8,7 +7,6 @@ import {
 } from "./ui/card";
 import Image from "next/image";
 import Link from "next/link";
-import { Skeleton } from "./ui/skeleton";
 
 type PostProps = {
   _id: number;
@@ -23,7 +21,7 @@ type PostProps = {
   createdAt: string;
 };
 
-export const CardPost = ({ post }: { post: PostProps }) => {
+export default function CardPost({ post }: { post: PostProps }) {
   const extractFirstParagraph = (content: string) => {
     const match = content.match(/<p\s[^>]*>(.*?)<\/p>/);
     return match ? match[1].trim() : "";
@@ -79,4 +77,4 @@ export const CardPost = ({ post }: { post: PostProps }) => {
       </CardFooter>
     </Card>
   );
-};
+}
