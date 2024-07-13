@@ -1,4 +1,5 @@
 "use client";
+
 import CardPost from "@/components/CardPost";
 import Paginator from "@/components/Paginator";
 import SortSelect from "@/components/SortSelect";
@@ -28,4 +29,4 @@ function PostsLayout({ posts, currentPage, pageCount }: Props) {
   );
 }
 
-export default PostsLayout;
+export default PostsLayout; 
