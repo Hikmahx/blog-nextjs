@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-const loading = () => {
+function Loading() {
   return (
     <main className="flex min-h-screen flex-col px-4 py-8 container mx-auto">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl prose-h1 my-6">
@@ -16,6 +16,6 @@ const loading = () => {
       </div>
     </main>
   );
-};
+}
 
-export default loading;
+export default Loading;

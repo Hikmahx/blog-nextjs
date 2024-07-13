@@ -33,7 +33,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   return (
     <main className="py-20">
-      <div className="container max-w-xl lg:max-w-5xl mx-auto px-4 py-6 md:px-6 ">
+      <div className="container max-w-xl lg:max-w-[820px] mx-auto px-4 py-6 md:px-6 ">
         <Link href="/blog" className="flex items-center my-2 prose pb-12">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -44,7 +44,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             viewBox="0 0 16 16"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
             ></path>
           </svg>
@@ -77,19 +77,19 @@ export default async function Page({ params }: { params: { id: string } }) {
               </span>
             </div>
             <div className="flex flex-wrap gap-3">
-            {data.hashtags.map((tag: string, index: number) => (
-              <Link
-                href={`/${tag}`}
-                key={`${tag}-${index}`}
-                className="uppercase !font-normal text-[8px] lg:!text-[10px] text-slate-500 py-1 rounded-full w-auto"
-              >
-                {tag}
-              </Link>
-            ))}
-          </div>
+              {data.hashtags.map((tag: string, index: number) => (
+                <Link
+                  href={`/${tag}`}
+                  key={`${tag}-${index}`}
+                  className="uppercase !font-normal text-[8px] lg:!text-[10px] text-slate-500 py-1 rounded-full w-auto"
+                >
+                  {tag}
+                </Link>
+              ))}
+            </div>
             <div className="mt-5">
               <Image
-                className="w-full h-auto bg-slate-300 rounded-lg my-2"
+                className="w-full max-w-[810px] mx-auto h-auto bg-slate-300 rounded-lg my-2 object-cover"
                 src={data.img}
                 alt="placeholder"
                 width={400}

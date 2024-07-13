@@ -1,19 +1,15 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { CardPost } from "@/components/CardPost";
+import CardPost from "@/components/CardPost";
 import Paginator from "@/components/Paginator";
 import SortSelect from "@/components/SortSelect";
 
 type Props = {
   posts: any[];
   currentPage: number;
-  sortBy: string;
   pageCount: number;
 };
 
-const PostsLayout = ({ posts, currentPage, sortBy, pageCount }: Props) => {
+function PostsLayout({ posts, currentPage, pageCount }: Props) {
   return (
     <main className="flex min-h-screen flex-col px-4 py-8 container mx-auto">
       <h1 className="text-3xl font-bold tracking-tight sm:text-4xl xl:text-5xl prose-h1 my-6">
@@ -30,6 +26,6 @@ const PostsLayout = ({ posts, currentPage, sortBy, pageCount }: Props) => {
       <Paginator pageCount={pageCount} currentPage={currentPage} />
     </main>
   );
-};
+}
 
 export default PostsLayout;
