@@ -11,7 +11,6 @@ import Link from "next/link";
 type PostProps = {
   _id: number;
   title: string;
-  content: string;
   hashtags: string[];
   author: {
     name: string;
@@ -22,13 +21,6 @@ type PostProps = {
 };
 
 function CardPost({ post }: { post: PostProps }) {
-  const extractFirstParagraph = (content: string) => {
-    const match = content.match(/<p\s[^>]*>(.*?)<\/p>/);
-    return match ? match[1].trim() : "";
-  };
-
-  const firstParagraph = extractFirstParagraph(post.content);
-
   return (
     <Card className="!prose lg:!prose-xl prose-slate flex flex-col justify-between">
       <div className="overflow-hidden">
@@ -40,13 +32,13 @@ function CardPost({ post }: { post: PostProps }) {
           height={120}
         />
       </div>
-      <CardHeader>
+      <CardHeader className="py-3 space-y-0">
         <CardTitle>{post.title}</CardTitle>
         <div className="flex gap-2 flex-wrap">
           {post.hashtags.map((tag, index) => (
             <a
               key={`${tag}-${index}`}
-              href="#"
+              href={`/tags/${tag}`}
               className="!no-underline !font-normal !text-sm bg-slate-100 px-4 py-1 rounded-full w-auto"
             >
               {tag}
@@ -54,15 +46,26 @@ function CardPost({ post }: { post: PostProps }) {
           ))}
         </div>
       </CardHeader>
-      <CardContent>
-        <p>{firstParagraph.substring(0, 100)}...</p>
+      <CardContent className="pb-0">
+        <p className="">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci
+          eveniet explicabo assumenda consectetur quibusdam facilis suscipit ut
+          beatae possimus quae...
+        </p>
       </CardContent>
       <CardFooter className="grid">
-        <p>
-          <Link href={`/blog/${post._id}`}>Read More</Link>
-        </p>
+        <Link href={`/blog/${post._id}`}>Read More</Link>
+
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-slate-300 rounded-full"></div>
+          <div>
+            <Image
+              className="w-10 h-10 bg-slate-300 !rounded-full my-2"
+              src={post.author.avatar}
+              alt="placeholder"
+              width={40}
+              height={40}
+            />
+          </div>{" "}
           <div className="flex flex-col text-sm">
             <span className="m-0 ">{post.author.name}</span>
             <time dateTime={post.createdAt.slice(0, 10)}>

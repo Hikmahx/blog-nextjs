@@ -1,3 +1,4 @@
+import BackButton from "@/components/BackButton";
 import { getPost } from "@/lib/post";
 import { Metadata } from "next";
 import Image from "next/image";
@@ -34,22 +35,7 @@ export default async function Page({ params }: { params: { id: string } }) {
   return (
     <main className="py-20">
       <div className="container max-w-xl lg:max-w-[820px] mx-auto px-4 py-6 md:px-6 ">
-        <Link href="/blog" className="flex items-center my-2 prose pb-12">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            className="bi bi-chevron-left"
-            viewBox="0 0 16 16"
-          >
-            <path
-              fillRule="evenodd"
-              d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"
-            ></path>
-          </svg>
-          BACK
-        </Link>
+        <BackButton />
         <article className="prose prose-img:rounded-xl !max-w-none mt-2">
           <section className="">
             <h1 className="text-3xl font-bold tracking-wider sm:text-4xl xl:text-5xl capitalize mb-2">
@@ -58,7 +44,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <div className="flex items-center gap-2 pb-3">
               <div>
                 <Image
-                  className="w-10 h-10 bg-slate-300 rounded-full my-2"
+                  className="w-10 h-10 bg-slate-300 !rounded-full my-2"
                   src={data.author.avatar}
                   alt="placeholder"
                   width={40}
@@ -79,7 +65,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             <div className="flex flex-wrap gap-3">
               {data.hashtags.map((tag: string, index: number) => (
                 <Link
-                  href={`/${tag}`}
+                  href={`/tag/${tag}`}
                   key={`${tag}-${index}`}
                   className="uppercase !font-normal text-[8px] lg:!text-[10px] text-slate-500 py-1 rounded-full w-auto"
                 >

@@ -21,7 +21,7 @@ function PostsLayout({ posts, currentPage, pageCount }: Props) {
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-x-6 gap-y-8">
         {posts.map((post: any) => (
-          <CardPost key={post.id} post={post} />
+          <CardPost key={post._id} post={post} />
         ))}
       </div>
       <Paginator pageCount={pageCount} currentPage={currentPage} />
