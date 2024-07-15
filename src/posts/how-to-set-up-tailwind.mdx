@@ -1,0 +1,49 @@
+---
+author:
+  name: "Adrienne Swift"
+  avatar: "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/51.jpg"
+_id: "668e439406650dffda71ecf1"
+title: "How to set up Tailwind CSS"
+img: "https://picsum.photos/seed/nzs6U4ayO/1280/960"
+hashtags: ["tailwindcss", "beginner"]
+createdAt: "2024-07-07T08:17:24.527Z"
+updatedAt: "2024-07-10T08:17:24.527Z"
+---
+
+# How to Set Up Tailwind CSS
+
+Tailwind CSS is a utility-first CSS framework that provides a lot of flexibility and control over your styling. Here’s how to set it up in a project.
+
+## Step 1: Install Tailwind CSS
+
+First, install Tailwind CSS via npm:
+
+```sh
+npm install tailwindcss
+```
+
+## Step 2: Configure Tailwind
+
+Create a tailwind.config.js file:
+
+```sh
+npx tailwindcss init
+```
+
+## Step 3: Add Tailwind to Your CSS
+
+In your CSS file, add the following:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+## Step 4: Build Your CSS
+
+Finally, build your CSS file using the Tailwind CLI tool:
+
+```sh
+npx tailwindcss build src/styles.css -o dist/styles.css
+```

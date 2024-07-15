@@ -1,0 +1,57 @@
+---
+author:
+  name: "Marlon Morar"
+  avatar: "https://avatars.githubusercontent.com/u/87557781"
+_id: "668e439406650dffda71ecf0"
+title: "Understanding React Hooks"
+img: "https://picsum.photos/seed/9gaJ8I/1280/960"
+hashtags: ["react", "hooks"]
+createdAt: "2024-07-06T08:17:24.527Z"
+updatedAt: "2024-07-10T08:17:24.527Z"
+---
+
+# Understanding React Hooks
+
+React hooks provide a powerful way to manage state and side effects in functional components.
+
+## useState
+
+The `useState` hook lets you add state to functional components:
+
+```jsx
+import React, { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+## useEffect
+
+The `useEffect` hook lets you perform side effects in your components
+
+```jsx
+import React, { useEffect } from 'react';
+
+function Example() {
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  return (
+    <div>
+      <p>You clicked {count} times</p>
+      <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+Hooks simplify the way you manage state and side effects in your React components!
