@@ -2,23 +2,9 @@ import matter from "gray-matter";
 import path from "path";
 import fs from "fs";
 import { cache } from "react";
+import { Post } from "./types";
 
 const POSTS_FOLDER = path.join(process.cwd(), "src", "posts");
-
-type Author = {
-  name: string;
-  avatar: string;
-};
-
-type Metadata = {
-  title: string;
-  createdAt: string;
-  content: string;
-  hashtags: string[];
-  author: Author;
-  img: string;
-  _id: string;
-};
 
 function getPostsFiles(dir: string) {
   return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
@@ -38,7 +24,7 @@ export const getPosts = cache(() => {
       ...data,
       content,
       slug: post.replace(/\.mdx?$/, ""),
-    } as Metadata & { slug: string };
+    } as Post & { slug: string };
   });
 });
 
@@ -49,4 +35,36 @@ export async function getPost(slug: string) {
   return posts.find((post) => post.slug === slug);
 }
 
-export default getPosts;
+// Get paginated posts with sorting
+export async function getData(
+  sortBy: string = "date",
+  page: number = 1,
+  postsPerPage: number = 4
+) {
+  const allPosts = await getPosts();
+
+  // Sorting (title or date)
+  let sortedPosts = [...allPosts];
+  if (sortBy === "title") {
+    sortedPosts.sort((a, b) => a.title.localeCompare(b.title));
+  } else {
+    sortedPosts.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }
+
+  // Pagination
+  const startIndex = (page - 1) * postsPerPage;
+  const paginatedPosts = sortedPosts.slice(
+    startIndex,
+    startIndex + postsPerPage
+  );
+  const pageCount = Math.ceil(sortedPosts.length / postsPerPage);
+
+  return {
+    posts: paginatedPosts,
+    currentPage: page,
+    pageCount: pageCount,
+  };
+}

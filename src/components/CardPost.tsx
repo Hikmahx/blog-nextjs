@@ -18,6 +18,7 @@ type PostProps = {
   };
   img: string;
   createdAt: string;
+  slug: string;
 };
 
 function CardPost({ post }: { post: PostProps }) {
@@ -54,7 +55,7 @@ function CardPost({ post }: { post: PostProps }) {
         </p>
       </CardContent>
       <CardFooter className="grid">
-        <Link href={`/blog/${post._id}`}>Read More</Link>
+        <Link href={`/blog/${post.slug}`}>Read More</Link>
 
         <div className="flex items-center gap-2">
           <div>

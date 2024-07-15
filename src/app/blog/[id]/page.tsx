@@ -1,6 +1,8 @@
 import BackButton from "@/components/BackButton";
 import { getPost } from "@/lib/post";
 import { Metadata } from "next";
+import { Post } from "@/lib/types";
+import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const id = decodeURI(params.id);
 
-  const data = await getPost(id);
+  const data: any = await getPost(id);
 
   return {
     title: data.title,
@@ -30,7 +32,7 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
 
-  const data = await getPost(id);
+  const data: any = await getPost(id);
 
   return (
     <main className="py-20">
@@ -84,10 +86,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </div>
           </section>
           <section className="prose prose-gray max-w-none not-italic">
-            <div
-              className="content"
-              dangerouslySetInnerHTML={{ __html: data.content }}
-            />
+            <MDXRemote source={data.content} />
           </section>
         </article>
       </div>
