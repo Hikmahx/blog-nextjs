@@ -19,6 +19,7 @@ type PostProps = {
   img: string;
   createdAt: string;
   slug: string;
+  content: string;
 };
 
 function CardPost({ post }: { post: PostProps }) {
@@ -48,19 +49,17 @@ function CardPost({ post }: { post: PostProps }) {
         </div>
       </CardHeader>
       <CardContent className="pb-0">
-        <p className="">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Adipisci
-          eveniet explicabo assumenda consectetur quibusdam facilis suscipit ut
-          beatae possimus quae...
+        <p className="font-normal text-base">
+          {post.content.slice(0, 90) + "..."}
         </p>
       </CardContent>
       <CardFooter className="grid">
         <Link href={`/blog/${post.slug}`}>Read More</Link>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 mt-4">
           <div>
             <Image
-              className="w-10 h-10 bg-slate-300 !rounded-full my-2"
+              className="w-10 h-10 bg-slate-300 !rounded-full !my-2 lg:!my-2"
               src={post.author.avatar}
               alt="placeholder"
               width={40}

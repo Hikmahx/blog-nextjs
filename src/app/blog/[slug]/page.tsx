@@ -9,11 +9,11 @@ import Link from "next/link";
 export async function generateMetadata({
   params,
 }: {
-  params: { id: string };
+  params: { slug: string };
 }): Promise<Metadata> {
-  const id = decodeURI(params.id);
+  const slug = decodeURI(params.slug);
 
-  const data: any = await getPost(id);
+  const data: any = await getPost(slug);
 
   return {
     title: data.title,
@@ -29,18 +29,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const { id } = params;
+export default async function Page({ params }: { params: { slug: string } }) {
+  const { slug } = params;
 
-  const data: any = await getPost(id);
+  const data: any = await getPost(slug);
 
   return (
-    <main className="py-20">
+    <main className="pb-20">
       <div className="container max-w-xl lg:max-w-[820px] mx-auto px-4 py-6 md:px-6 ">
         <BackButton />
         <article className="prose prose-img:rounded-xl !max-w-none mt-2">
           <section className="">
-            <h1 className="text-3xl font-bold tracking-wider sm:text-4xl xl:text-5xl capitalize mb-2">
+            <h1 className="text-3xl font-bold tracking-wide sm:text-4xl xl:text-5xl capitalize mb-2">
               {data.title}
             </h1>
             <div className="flex items-center gap-2 pb-3">
@@ -75,7 +75,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 </Link>
               ))}
             </div>
-            <div className="mt-5">
+            <div className="my-5">
               <Image
                 className="w-full max-w-[810px] mx-auto h-auto bg-slate-300 rounded-lg my-2 object-cover"
                 src={data.img}
