@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Monda } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "./theme-provider";
+import Header from "@/components/Header";
 
 const monda = Monda({
   weight: ["400", "700"],
@@ -23,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={monda.className}>
+        <Header />
         <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
