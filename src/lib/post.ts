@@ -1,33 +1,52 @@
-export function getQueryString(sortBy = "date", curPage = 1) {
-  const validatePage = isNaN(curPage) || curPage < 1 ? 1 : curPage;
-  const validateSortBy = sortBy === "title" ? "title" : "date";
+import matter from "gray-matter";
+import path from "path";
+import fs from "fs";
+import { cache } from "react";
 
-  let queryString = `?sortBy=${validateSortBy}`;
-  if (validatePage > 1) {
-    queryString += `&page=${validatePage}`;
-  }
+const POSTS_FOLDER = path.join(process.cwd(), "src", "posts");
 
-  return queryString;
+type Author = {
+  name: string;
+  avatar: string;
 };
 
-export async function getData(sortBy: string, currentPage: number) {
-  const queryString = getQueryString(sortBy, currentPage);
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/posts${queryString}`
-  );
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  return response.json();
+type Metadata = {
+  title: string;
+  createdAt: string;
+  content: string;
+  hashtags: string[];
+  author: Author;
+  img: string;
+  _id: string;
 };
 
-export async function getPost(id: string) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/posts/${id}`
-  );
+function getPostsFiles(dir: string) {
+  return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
+}
 
-  if (!response.ok) {
-    throw new Error(`HTTP error! status: ${response.status}`);
-  }
-  return response.json();
-};
+export const getPosts = cache(() => {
+  // Usage:
+  // const posts = await getPosts()
+  const posts = getPostsFiles(POSTS_FOLDER);
+
+  return posts.map((post) => {
+    const filePath = path.join(POSTS_FOLDER, post);
+    const fileContent = fs.readFileSync(filePath, "utf-8");
+    const { data, content } = matter(fileContent);
+
+    return {
+      ...data,
+      content,
+      slug: post.replace(/\.mdx?$/, ""),
+    } as Metadata & { slug: string };
+  });
+});
+
+export async function getPost(slug: string) {
+  // Usage:
+  // const posts = await getPosts('my-post');
+  const posts = await getPosts();
+  return posts.find((post) => post.slug === slug);
+}
+
+export default getPosts;

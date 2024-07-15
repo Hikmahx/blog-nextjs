@@ -1,33 +1,44 @@
+import remarkGfm from "remark-gfm";
+import createMDX from "@next/mdx";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  pageExtensions: ["js", "jsx", "mdx", "ts", "tsx"],
   images: {
     remotePatterns: [
       {
         protocol: "https",
         hostname: "placehold.jp",
         port: "",
-        pathname: '**',
+        pathname: "**",
       },
       {
         protocol: "https",
         hostname: "picsum.photos",
         port: "",
-        pathname: '**',
+        pathname: "**",
       },
       {
         protocol: "https",
         hostname: "cloudflare-ipfs.com",
         port: "",
-        pathname: '**',
+        pathname: "**",
       },
       {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
         port: "",
-        pathname: '**',
-      }
+        pathname: "**",
+      },
     ],
   },
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  options: {
+    remarkPlugins: [remarkGfm],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX(nextConfig);
