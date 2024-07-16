@@ -5,6 +5,7 @@ import { getPost } from "@/lib/post";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Post } from "@/lib/types";
+import SyntaxHighlighter from "react-syntax-highlighter";
 
 type Metadata = {
   title: string;
@@ -18,6 +19,8 @@ type Metadata = {
     images: string;
   };
 };
+
+const components = { SyntaxHighlighter };
 
 export async function generateMetadata({
   params,
@@ -98,7 +101,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
           </section>
           <section className="prose prose-gray max-w-none not-italic">
-            <MDXRemote source={data.content} />
+            <MDXRemote source={data.content} components={components} />
           </section>
         </article>
       </div>

@@ -10,41 +10,45 @@ createdAt: "2024-07-14T08:17:24.527Z"
 updatedAt: "2024-07-10T08:17:24.527Z"
 ---
 
-
 Functions are a fundamental concept in programming that allow you to encapsulate a block of code that can be reused. In Python, defining and using functions is straightforward.
 
 ### Defining a Function
 
 To define a function in Python, use the `def` keyword followed by the function name and parentheses `()`. You can also specify parameters inside the parentheses if your function needs inputs.
 
-```python
-def greet(name):
-    """Function to greet a person by name."""
-    print(f"Hello, {name}!")
-```
+<SyntaxHighlighter language="python">
+  {`
+    def greet(name):
+        """Function to greet a person by name."""
+        print(f"Hello, {name}!")
+  `}
+</SyntaxHighlighter>
 
 ### Calling a Function
 
 Once defined, you can call a function by using its name followed by parentheses `()`.
 
-```python
-greet("Alice")
-```
+<SyntaxHighlighter language="python">
+  {`
+    greet("Alice")
+  `}
+</SyntaxHighlighter>
 
 ### Return Statement
 
-Functions can also return values using the `return` statement. This allows functions to compute a result that can be used elsewhere in your code.
+Functions can also return values using the \`return\` statement. This allows functions to compute a result that can be used elsewhere in your code.
 
-```python
-def add(a, b):
-  """Function to add two numbers."""
-  return a + b
+<SyntaxHighlighter language="python">
+  {`
+    def add(a, b):
+        """Function to add two numbers."""
+        return a + b
 
-result = add(3, 5)
-print("The sum is:", result)
-```
+    result = add(3, 5)
+    print("The sum is:", result)
+  `}
+</SyntaxHighlighter>
 
 ### Conclusion
 
 Functions are essential for organizing code and promoting reusability in Python. As you learn more, you'll discover their power in creating modular and efficient programs.
-

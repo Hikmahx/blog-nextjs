@@ -16,18 +16,22 @@ In this tutorial, we will explore how to build a blog using Next.js version 13. 
 
 To begin, make sure you have Node.js and npm (Node Package Manager) installed on your development machine. You can install Next.js globally using npm:
 
-```bash
-npm install -g next
-```
+<SyntaxHighlighter language="bash">
+  {`
+    npm install -g next
+  `}
+</SyntaxHighlighter>
 
 ### Setting Up Your Next.js Project
 
 Create a new Next.js project by running the following commands:
 
-```bash
-npx create-next-app@13 my-blog
-cd my-blog
-```
+<SyntaxHighlighter language="bash">
+  {`
+    npx create-next-app@13 my-blog
+    cd my-blog
+  `}
+</SyntaxHighlighter>
 
 ## Creating Pages
 
@@ -35,85 +39,99 @@ Next.js uses a pages-based routing system. Create a new directory called `pages`
 
 ### Homepage (`index.js`)
 
-```jsx
-import Link from 'next/link';
+<SyntaxHighlighter language="jsx">
+  {`
+    import Link from "next/link";
 
-export default function Home() {
-  return (
-    <div>
-      <h1>Welcome to My Blog</h1>
-      <p>Explore our latest posts:</p>
-      <ul>
-        <li><Link href="/blog/first-post">First Post</Link></li>
-        <li><Link href="/blog/second-post">Second Post</Link></li>
-        {/* Add more links for other posts */}
-      </ul>
-    </div>
-  );
-}
-```
+    export default function Home() {
+      return (
+        <div>
+          <h1>Welcome to My Blog</h1>
+          <p>Explore our latest posts:</p>
+          <ul>
+            <li>
+              <Link href="/blog/first-post">First Post</Link>
+            </li>
+            <li>
+              <Link href="/blog/second-post">Second Post</Link>
+            </li>
+            {/* Add more links for other posts */}
+          </ul>
+        </div>
+      );
+    }
 
-```jsx
-// pages/blog.js
-export default function Blog() {
-  return (
-    <div>
-      <h1>Blog</h1>
-      {/* Render list of blog posts here */}
-    </div>
-  );
-}
-```
+`}
+
+</SyntaxHighlighter>
+
+<SyntaxHighlighter language="jsx">
+  {`
+    // pages/blog.js
+    export default function Blog() {
+      return (
+        <div>
+          <h1>Blog</h1>
+          {/* Render list of blog posts here */}
+        </div>
+      );
+    }
+  `}
+</SyntaxHighlighter>
 
 ## Fetching Blog Data
 
 You can fetch blog data from a CMS, API, or local JSON file. Here’s an example of fetching data from a local JSON file:
 
-```json
-// data/posts.json
-[
-  {
-    "id": 1,
-    "title": "First Post",
-    "content": "This is my first blog post."
-  },
-  {
-    "id": 2,
-    "title": "Second Post",
-    "content": "This is my second blog post."
+<SyntaxHighlighter language="json">
+  {`
+    // data/posts.json
+    [
+      {
+        "id": 1,
+        "title": "First Post",
+        "content": "This is my first blog post."
+      },
+      {
+        "id": 2,
+        "title": "Second Post",
+        "content": "This is my second blog post."
+      }
+    ]
+  `}
+</SyntaxHighlighter>
+
+<SyntaxHighlighter language="jsx">
+{`
+  // pages/blog.js
+  import { useEffect, useState } from "react";
+  import Link from "next/link";
+  import posts from "../data/posts.json";
+
+  export default function Blog() {
+    const [blogPosts, setBlogPosts] = useState([]);
+
+    useEffect(() => {
+      setBlogPosts(posts);
+    }, []);
+
+    return (
+      <div>
+        <h1>Blog</h1>
+        <ul>
+          {blogPosts.map((post) => (
+            <li key={post.id}>
+              <Link href={\`/blog/\${post.id}\`}>
+                <a>{post.title}</a>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
-]
-```
-
-```jsx
-// pages/blog.js
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import posts from '../data/posts.json';
-
-export default function Blog() {
-  const [blogPosts, setBlogPosts] = useState([]);
-
-  useEffect(() => {
-    setBlogPosts(posts);
-  }, []);
-
-  return (
-    <div>
-      <h1>Blog</h1>
-      <ul>
-        {blogPosts.map((post) => (
-          <li key={post.id}>
-            <Link href={`/blog/${post.id}`}>
-              <a>{post.title}</a>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
-```
+`}
+</SyntaxHighlighter>
 
 ## Conclusion
 
@@ -121,6 +139,8 @@ Building a blog with Next.js 13 allows you to leverage its powerful features for
 
 For more advanced features and deployment options, refer to the Next.js documentation and community resources.
 
-```vbnet
-This tutorial covers setting up a basic blog using Next.js 13, creating pages, fetching blog data, and concluding with further customization and enhancements.
-```
+<SyntaxHighlighter language="vbnet">
+  {`
+    This tutorial covers setting up a basic blog using Next.js 13, creating pages, fetching blog data, and concluding with further customization and enhancements.
+  `}
+</SyntaxHighlighter>

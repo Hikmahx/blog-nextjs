@@ -16,40 +16,45 @@ React hooks provide a powerful way to manage state and side effects in functiona
 
 The `useState` hook lets you add state to functional components:
 
-```jsx
-import React, { useState } from "react";
+<SyntaxHighlighter language="jsx">
+  {`
+    import React, { useState } from "react";
 
-function Counter() {
-  const [count, setCount] = useState(0);
+    function Counter() {
+      const [count, setCount] = useState(0);
 
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
-  );
-}
-```
+      return (
+        <div>
+          <p>You clicked {count} times</p>
+          <button onClick={() => setCount(count + 1)}>Click me</button>
+        </div>
+      );
+    }
+  `}
+</SyntaxHighlighter>
 
 ## useEffect
 
 The `useEffect` hook lets you perform side effects in your components
+<SyntaxHighlighter language="jsx">
+  {`
+    import React, { useState, useEffect } from "react";
 
-```jsx
-import React, { useEffect } from "react";
+    function Example() {
+      const [count, setCount] = useState(0);
 
-function Example() {
-  useEffect(() => {
-    document.title = `You clicked ${count} times`;
-  });
+      useEffect(() => {
+        document.title = \`You clicked \${count} times\`;
+      });
 
-  return (
-    <div>
-      <p>You clicked {count} times</p>
-      <button onClick={() => setCount(count + 1)}>Click me</button>
-    </div>
-  );
-}
-```
+      return (
+        <div>
+          <p>You clicked \${count} times</p>
+          <button onClick={() => setCount(count + 1)}>Click me</button>
+        </div>
+      );
+    }
+  `}
+</SyntaxHighlighter>
 
 Hooks simplify the way you manage state and side effects in your React components!

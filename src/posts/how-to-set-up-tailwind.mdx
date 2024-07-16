@@ -16,32 +16,40 @@ Tailwind CSS is a utility-first CSS framework that provides a lot of flexibility
 
 First, install Tailwind CSS via npm:
 
-```sh
-npm install tailwindcss
-```
+<SyntaxHighlighter language="sh">
+  {`
+    npm install tailwindcss
+  `}
+</SyntaxHighlighter>
 
 ## Step 2: Configure Tailwind
 
 Create a tailwind.config.js file:
 
-```sh
-npx tailwindcss init
-```
+<SyntaxHighlighter language="sh">
+  {`
+    npx tailwindcss init
+  `}
+</SyntaxHighlighter>
 
 ## Step 3: Add Tailwind to Your CSS
 
 In your CSS file, add the following:
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-```
+<SyntaxHighlighter language="css">
+  {`  
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+  `}
+</SyntaxHighlighter>
 
 ## Step 4: Build Your CSS
 
 Finally, build your CSS file using the Tailwind CLI tool:
 
-```sh
-npx tailwindcss build src/styles.css -o dist/styles.css
-```
+<SyntaxHighlighter language="sh">
+  {`
+    npx tailwindcss build src/styles.css -o dist/styles.css
+  `}
+</SyntaxHighlighter>
