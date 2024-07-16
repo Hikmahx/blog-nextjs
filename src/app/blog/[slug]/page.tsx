@@ -1,10 +1,24 @@
+import React from 'react';
 import BackButton from "@/components/BackButton";
 import { getPost } from "@/lib/post";
-import { Metadata } from "next";
-import { Post } from "@/lib/types";
+// import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import Link from "next/link";
+import { Post } from '@/lib/types';
+
+type Metadata = {
+  title: string;
+  description?: string;
+  authors?: string;
+  keywords?: string;
+  openGraph?: {
+    type: string;
+    title: string;
+    description: string;
+    images: string;
+  };
+}
 
 export async function generateMetadata({
   params,
@@ -13,7 +27,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const slug = decodeURI(params.slug);
 
-  const data: any = await getPost(slug);
+  const data: Post = await getPost(slug);
 
   return {
     title: data.title,
@@ -32,7 +46,7 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
-  const data: any = await getPost(slug);
+  const data: Post = await getPost(slug);
 
   return (
     <main className="pb-20">

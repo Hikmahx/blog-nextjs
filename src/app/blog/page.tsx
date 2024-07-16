@@ -1,3 +1,4 @@
+import React from 'react';
 import PostsLayout from "@/layouts/PostsLayout";
 import { getData } from "@/lib/post";
 import { Metadata } from "next";

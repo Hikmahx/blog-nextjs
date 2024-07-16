@@ -1,6 +1,6 @@
+import React from 'react';
 import BackButton from "@/components/BackButton";
 import { Skeleton } from "@/components/ui/skeleton";
-import Link from "next/link";
 
 export default function Loading() {
   return (

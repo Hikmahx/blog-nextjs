@@ -1,11 +1,13 @@
 "use client";
 
+import React from 'react';
 import CardPost from "@/components/CardPost";
 import Paginator from "@/components/Paginator";
 import SortSelect from "@/components/SortSelect";
+import { Post } from '@/lib/types';
 
 type Props = {
-  posts: any[];
+  posts: Post[];
   currentPage: number;
   pageCount: number;
 };
@@ -20,7 +22,7 @@ function PostsLayout({ posts, currentPage, pageCount }: Props) {
         <SortSelect />
       </div>
       <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-x-6 gap-y-8">
-        {posts.map((post: any) => (
+        {posts.map((post: Post) => (
           <CardPost key={post._id} post={post} />
         ))}
       </div>

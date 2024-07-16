@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Card,
   CardContent,
@@ -7,22 +8,9 @@ import {
 } from "./ui/card";
 import Image from "next/image";
 import Link from "next/link";
+import { Post } from "@/lib/types";
 
-type PostProps = {
-  _id: number;
-  title: string;
-  hashtags: string[];
-  author: {
-    name: string;
-    avatar: string;
-  };
-  img: string;
-  createdAt: string;
-  slug: string;
-  content: string;
-};
-
-function CardPost({ post }: { post: PostProps }) {
+function CardPost({ post }: { post: Post }) {
   return (
     <Card className="!prose lg:!prose-xl prose-slate relative grid grid-rows-[auto_1fr_auto] gap-4 border-none shadow-none">
       <Link href={`/blog/${post.slug}`} className="absolute inset-0"></Link>
