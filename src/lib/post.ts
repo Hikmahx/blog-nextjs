@@ -35,22 +35,16 @@ export async function getPost(slug: string) {
   return posts.find((post) => post.slug === slug);
 }
 
-// Get paginated posts with sorting and tag filtering (optional)
+// Get paginated posts with sorting
 export async function getData(
   sortBy: string = "date",
   page: number = 1,
-  postsPerPage: number = 4,
-  tag?: string
+  postsPerPage: number = 4
 ) {
   const allPosts = await getPosts();
 
-  let filteredPosts = allPosts;
-  if (tag) {
-    filteredPosts = allPosts.filter((post) => post.hashtags.includes(tag));
-  }
-
   // Sorting (title or date)
-  const sortedPosts = [...filteredPosts];
+  const sortedPosts = [...allPosts];
   if (sortBy === "title") {
     sortedPosts.sort((a, b) => a.title.localeCompare(b.title));
   } else {

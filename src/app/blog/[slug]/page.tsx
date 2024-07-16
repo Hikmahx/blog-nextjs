@@ -1,11 +1,10 @@
-import React from 'react';
+import React from "react";
 import BackButton from "@/components/BackButton";
 import { getPost } from "@/lib/post";
 // import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
-import Link from "next/link";
-import { Post } from '@/lib/types';
+import { Post } from "@/lib/types";
 
 type Metadata = {
   title: string;
@@ -18,7 +17,7 @@ type Metadata = {
     description: string;
     images: string;
   };
-}
+};
 
 export async function generateMetadata({
   params,
@@ -80,13 +79,12 @@ export default async function Page({ params }: { params: { slug: string } }) {
             </div>
             <div className="flex flex-wrap gap-3">
               {data.hashtags.map((tag: string, index: number) => (
-                <Link
-                  href={`/tag/${tag}`}
+                <span
                   key={`${tag}-${index}`}
                   className="uppercase !font-normal text-[8px] lg:!text-[10px] text-slate-500 py-1 rounded-full w-auto"
                 >
                   {tag}
-                </Link>
+                </span>
               ))}
             </div>
             <div className="my-5">

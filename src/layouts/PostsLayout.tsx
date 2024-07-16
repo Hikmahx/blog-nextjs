@@ -21,7 +21,7 @@ function PostsLayout({ posts, currentPage, pageCount }: Props) {
       <div className="w-full flex justify-end mb-12">
         <SortSelect />
       </div>
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 mx-auto gap-x-6 gap-y-8">
+      <div className="flex flex-col mx-auto gap-x-6 gap-y-2">
         {posts.map((post: Post) => (
           <CardPost key={post._id} post={post} />
         ))}
