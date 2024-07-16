@@ -11,4 +11,5 @@ export type Post = {
   author: Author;
   img: string;
   _id: string;
+  slug?: string;
 };
