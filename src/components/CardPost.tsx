@@ -12,12 +12,12 @@ import { Post } from "@/lib/types";
 
 function CardPost({ post }: { post: Post }) {
   return (
-    <Card className="!prose lg:!prose-xl prose-slate relative rounded-none shadow-none flex items-center justify-between border-white border-b border-b-gray-300 first:border-t first:border-t-gray-300 gap-x-4">
+    <Card className="w-full !prose lg:!prose-xl prose-slate !max-w-none lg:!max-w-none relative rounded-none shadow-none flex items-center justify-between border-white border-b border-b-gray-300 first:border-t first:border-t-gray-300 gap-x-4">
       <div className="">
         <Link href={`/blog/${post.slug}`} className="absolute inset-0"></Link>
         <CardHeader className="py-1 space-y-0 px-0">
           <div className="flex items-center gap-2">
-            <div>
+            <div className="py-5">
               <Image
                 className="w-10 h-10 bg-slate-300 !rounded-full !my-2 lg:!my-2"
                 src={post.author.avatar}
@@ -40,7 +40,7 @@ function CardPost({ post }: { post: Post }) {
           <CardTitle className="!my-2 lg:!my-2">{post.title}</CardTitle>
         </CardHeader>
         <CardContent className="pb-0 px-0">
-          <p className="font-normal text-base !my-0 lg:!my-0 font-sans text-gray-500">
+          <p className="font-normal text-base !my-0 lg:!my-0 font-sans text-gray-500 w-full max-w-lg mr-auto">
             {post.content.slice(0, 150) + "..."}
           </p>
         </CardContent>
