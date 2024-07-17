@@ -39,12 +39,18 @@ export async function getPost(slug: string) {
 export async function getData(
   sortBy: string = "date",
   page: number = 1,
-  postsPerPage: number = 4
+  searchTerm: string = ""
 ) {
+  const postsPerPage = 4;
   const allPosts = await getPosts();
 
+  // Search filter (by title)
+  const filteredPosts = allPosts.filter((post) =>
+    post.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   // Sorting (title or date)
-  const sortedPosts = [...allPosts];
+  const sortedPosts = [...filteredPosts];
   if (sortBy === "title") {
     sortedPosts.sort((a, b) => a.title.localeCompare(b.title));
   } else {

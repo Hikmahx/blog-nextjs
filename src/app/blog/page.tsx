@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import PostsLayout from "@/layouts/PostsLayout";
 import { getData } from "@/lib/post";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: 'Blog',
+  title: "Blog",
 };
 
 export default async function Page({
@@ -13,17 +13,20 @@ export default async function Page({
   searchParams?: {
     sortBy?: string;
     page?: string;
+    search?: string;
   };
 }) {
   const sortBy = searchParams?.sortBy || "";
   const currentPage = parseInt(searchParams?.page || "1");
-  const data = await getData(sortBy, currentPage);
+  const searchTerm = searchParams?.search || "";
+  const data = await getData(sortBy, currentPage, searchTerm);
 
   return (
     <PostsLayout
       posts={data.posts}
       currentPage={data.currentPage}
       pageCount={data.pageCount}
+      searchTerm={searchTerm}
     />
   );
 }

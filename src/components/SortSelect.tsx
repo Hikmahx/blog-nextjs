@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import {
   Select,
   SelectContent,
@@ -31,7 +32,7 @@ function SortSelect() {
   };
 
   return (
-    <Select onValueChange={(value: any) => handleChange(value)}>
+    <Select onValueChange={(value: string) => handleChange(value)}>
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
