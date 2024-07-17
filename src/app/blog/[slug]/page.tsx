@@ -1,11 +1,12 @@
 import React from "react";
 import BackButton from "@/components/BackButton";
 import { getPost } from "@/lib/post";
-// import { Metadata } from "next";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Image from "next/image";
 import { Post } from "@/lib/types";
 import SyntaxHighlighter from "react-syntax-highlighter";
+import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
+
 
 type Metadata = {
   title: string;
@@ -20,7 +21,19 @@ type Metadata = {
   };
 };
 
-const components = { SyntaxHighlighter };
+const components = {
+  SyntaxHighlighter: ({
+    children,
+    language,
+  }: {
+    children: string;
+    language: string;
+  }) => (
+    <SyntaxHighlighter language={language} style={atomOneDark}>
+      {children}
+    </SyntaxHighlighter>
+  ),
+};
 
 export async function generateMetadata({
   params,
