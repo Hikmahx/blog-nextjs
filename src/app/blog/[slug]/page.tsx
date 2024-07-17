@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Post } from "@/lib/types";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
+import ShareArticle from "@/components/ShareArticle";
 
 type Metadata = {
   title: string;
@@ -66,7 +66,10 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
     <main className="pb-20">
       <div className="container max-w-xl lg:max-w-[820px] mx-auto px-4 py-6 md:px-6 ">
-        <BackButton />
+        <div className="flex items-center justify-between">
+          <BackButton />
+          <ShareArticle />
+        </div>
         <article className="prose prose-img:rounded-xl !max-w-none mt-2">
           <section className="">
             <h1 className="text-3xl font-bold tracking-wide sm:text-4xl xl:text-5xl capitalize mb-2">
