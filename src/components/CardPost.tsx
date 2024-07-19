@@ -59,7 +59,7 @@ function CardPost({ post }: { post: Post }) {
           </div>
         </CardFooter>
       </div>
-      <div className="overflow-hidden mt-4 md:order-1">
+      <div className="overflow-hidden mt-4 md:mt-0 md:order-1">
         <Image
           className="w-full h-auto !m-0 lg:!m-0 rounded-lg"
           src={post.img}
