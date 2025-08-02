@@ -42,7 +42,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const slug = decodeURI(params.slug);
 
-  const data: Post = await getPost(slug);
+  const data = await getPost(slug);
+
+  if (!data) {
+    throw new Error(`Post with slug "${slug}" not found`);
+  }
 
   return {
     title: data.title,
@@ -61,7 +65,11 @@ export async function generateMetadata({
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = params;
 
-  const data: Post = await getPost(slug);
+  const data: Post = (await getPost(slug))!;
+
+  if (!data) {
+    return <div>Post not found</div>;
+  }
 
   return (
     <main className="pb-20">
