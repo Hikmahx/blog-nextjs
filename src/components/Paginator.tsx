@@ -1,5 +1,5 @@
 import React from "react";
-import { Pagination } from "./ui/pagination";
+// import { div } from "./ui/div";
 import ReactPaginate from "react-paginate";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
@@ -27,7 +27,7 @@ function Paginator({ currentPage, pageCount }: Props) {
 
   return (
     <div className="mt-7 flex flex-col items-center justify-between lg:flex-row">
-      <Pagination>
+      <nav className="mx-auto flex w-full justify-center">
         <ReactPaginate
           breakLabel="..."
           onPageChange={handlePageClick}
@@ -71,7 +71,7 @@ function Paginator({ currentPage, pageCount }: Props) {
           renderOnZeroPageCount={null}
           forcePage={currentPage - 1}
         />
-      </Pagination>
+      </nav>
     </div>
   );
 }

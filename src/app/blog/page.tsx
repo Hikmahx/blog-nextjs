@@ -1,7 +1,7 @@
 import React from "react";
-import PostsLayout from "@/layouts/PostsLayout";
 import { getData } from "@/lib/post";
 import { Metadata } from "next";
+import Posts from "@/components/Posts";
 
 export const metadata: Metadata = {
   title: "Blog",
@@ -22,7 +22,7 @@ export default async function Page({
   const data = await getData(sortBy, currentPage, searchTerm);
 
   return (
-    <PostsLayout
+    <Posts
       posts={data.posts}
       currentPage={data.currentPage}
       pageCount={data.pageCount}

@@ -14,8 +14,7 @@ type Props = {
   searchTerm: string;
 };
 
-function PostsLayout({ posts, currentPage, pageCount, searchTerm }: Props) {
-
+function Posts({ posts, currentPage, pageCount, searchTerm }: Props) {
   return (
     <main className="flex min-h-screen flex-col px-4 py-8 container mx-auto ">
       <Search searchTerm={searchTerm} />
@@ -26,7 +25,8 @@ function PostsLayout({ posts, currentPage, pageCount, searchTerm }: Props) {
       <div className="flex flex-col mx-auto gap-x-6 gap-y-2 w-full">
         {posts.length < 1 && searchTerm !== "" && (
           <h2 className="text-xl tracking-tight prose-h2 text-center mt-4">
-            No title found matching {`'${searchTerm}'`}. Please update your search term
+            No title found matching {`'${searchTerm}'`}. Please update your
+            search term
           </h2>
         )}
         {posts.map((post: Post) => (
@@ -38,4 +38,4 @@ function PostsLayout({ posts, currentPage, pageCount, searchTerm }: Props) {
   );
 }
 
-export default PostsLayout;
+export default Posts;
