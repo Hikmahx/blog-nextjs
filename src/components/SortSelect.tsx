@@ -36,7 +36,7 @@ function SortSelect() {
       <SelectTrigger className="w-[180px]">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className='relative z-20'>
         <SelectGroup>
           <SelectLabel>Sort By</SelectLabel>
           <SelectItem value="date">Created At</SelectItem>
