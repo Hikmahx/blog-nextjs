@@ -14,7 +14,7 @@ function CardPost({ post }: { post: Post }) {
   return (
     <Card className="w-full !prose lg:!prose-xl prose-slate !max-w-none lg:!max-w-none relative rounded-none shadow-none flex flex-col md:flex-row items-center justify-between border-white border-b border-b-gray-300 first:border-t first:border-t-gray-300 gap-x-4">
       <div className="order-2 md:order-1">
-        <Link href={`/blog/${post.slug}`} className="absolute inset-0"></Link>
+        <Link href={`/blog/${post.slug}`} className="absolute inset-x-0 h-1/2 md:h-full"></Link>
         <CardHeader className="py-1 space-y-0 px-0">
           <div className="flex items-center gap-2">
             <div className="py-5">
