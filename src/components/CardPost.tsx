@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { Post } from "@/lib/types";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 function CardPost({ post }: { post: Post }) {
   return (
@@ -18,13 +19,18 @@ function CardPost({ post }: { post: Post }) {
         <CardHeader className="py-1 space-y-0 px-0">
           <div className="flex items-center gap-2">
             <div className="py-5">
-              <Image
-                className="w-10 h-10 bg-slate-300 !rounded-full !my-2 lg:!my-2"
+              <Avatar>
+              <AvatarImage
+                className="w-10 h-10 bg-slate-300 rounded-full"
                 src={post.author.avatar}
-                alt="placeholder"
+                alt="avatar"
                 width={40}
                 height={40}
               />
+              <AvatarFallback>
+                {post.author.name[0] || 'A'}
+              </AvatarFallback>
+              </Avatar>
             </div>
             <div className="flex flex-col text-xs">
               <span className="m-0 font-bold">{post.author.name}</span>
