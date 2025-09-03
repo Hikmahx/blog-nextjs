@@ -21,7 +21,7 @@ function CardPost({ post }: { post: Post }) {
             <div className="py-5">
               <Avatar>
               <AvatarImage
-                className="w-10 h-10 bg-slate-300 rounded-full"
+                className="w-full h-full bg-slate-300 !my-0"
                 src={post.author.avatar}
                 alt="avatar"
                 width={40}
